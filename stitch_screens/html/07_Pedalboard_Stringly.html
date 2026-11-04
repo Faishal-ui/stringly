@@ -1,0 +1,550 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<meta content="mobile_stack" name="shell-type">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Outfit:wght@500;600;700;800&amp;family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-secondary": "#ffffff",
+            "stage-crimson": "#c0392b",
+            "stage-success": "#27ae60",
+            "on-error-container": "#93000a",
+            "on-primary-fixed": "#410000",
+            "fretboard-wire": "#d0d0d0",
+            "inverse-on-surface": "#f0f0f2",
+            "surface-container-low": "#f3f3f5",
+            "on-secondary-fixed-variant": "#832600",
+            "on-primary-container": "#ffe5e1",
+            "on-primary": "#ffffff",
+            "charcoal-hardware": "#1a1a1a",
+            "inverse-primary": "#ffb4a9",
+            "on-tertiary": "#ffffff",
+            "surface-bright": "#f9f9fb",
+            "amber-gold": "#ff8c00",
+            "tertiary-fixed-dim": "#ffb5a0",
+            "surface-variant": "#e2e2e4",
+            "surface-container-highest": "#e2e2e4",
+            "primary": "#9e2016",
+            "inverse-surface": "#2f3132",
+            "primary-container": "#c0392b",
+            "error": "#ba1a1a",
+            "surface": "#f9f9fb",
+            "on-surface-variant": "#59413d",
+            "outline-variant": "#e1bfb9",
+            "amber-warning-bright": "#f39c12",
+            "on-surface": "#1a1c1d",
+            "surface-dim": "#d9dadc",
+            "secondary-fixed-dim": "#ffb59d",
+            "outline": "#8d706c",
+            "tertiary-container": "#c53300",
+            "on-primary-fixed-variant": "#8e130c",
+            "slate-hardware": "#3a3a3a",
+            "blaze-accent": "#ff4500",
+            "secondary-container": "#fe6a34",
+            "surface-container-high": "#e8e8ea",
+            "primary-fixed-dim": "#ffb4a9",
+            "surface-tint": "#b02d21",
+            "tertiary": "#9a2600",
+            "surface-container": "#eeeef0",
+            "stage-success-bright": "#2ecc71",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-fixed": "#ffdbd1",
+            "on-secondary-container": "#5d1900",
+            "amber-warning": "#e67e22",
+            "secondary": "#ab3500",
+            "error-container": "#ffdad6",
+            "on-tertiary-container": "#ffe5de",
+            "on-tertiary-fixed-variant": "#872000",
+            "on-error": "#ffffff",
+            "on-background": "#1a1c1d",
+            "background": "#f9f9fb",
+            "on-secondary-fixed": "#390c00",
+            "secondary-fixed": "#ffdbd0",
+            "on-tertiary-fixed": "#3b0900",
+            "ember-scarlet": "#e74c3c",
+            "canvas-neutral": "#f4f4f6",
+            "nav-glass": "rgba(250, 250, 252, 0.82)",
+            "primary-fixed": "#ffdad5",
+            "electric-orange": "#ff6b35",
+            "surface-glass": "rgba(255, 255, 255, 0.92)",
+            "graphite-mute": "#6b6b6b"
+          },
+          borderRadius: {
+            "DEFAULT": "1rem",
+            "lg": "1.5rem",
+            "xl": "2rem",
+            "full": "9999px"
+          },
+          fontFamily: {
+            "headline-lg": ["Outfit", "sans-serif"],
+            "headline-md": ["Outfit", "sans-serif"],
+            "headline-sm": ["Outfit", "sans-serif"],
+            "title-base": ["Outfit", "sans-serif"],
+            "label-caption": ["Outfit", "sans-serif"],
+            "label-eyebrow": ["Outfit", "sans-serif"],
+            "body-base": ["Inter", "sans-serif"],
+            "body-sm": ["Inter", "sans-serif"],
+            "body-sm-medium": ["Inter", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+<style>
+    @layer base {
+      html, body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        min-height: 100%;
+      }
+      body {
+        overscroll-behavior-y: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 16px);
+      }
+      .pt-safe {
+        padding-top: env(safe-area-inset-top, 0px);
+      }
+    }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .material-symbols-outlined.filled {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface font-body-base antialiased min-h-screen relative flex flex-col selection:bg-primary selection:text-on-primary">
+<!-- Subtle Background Ambiance -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+<div class="absolute -top-24 -right-16 w-80 h-80 rounded-full bg-ember-scarlet/10 blur-[64px]"></div>
+<div class="absolute top-1/3 -left-20 w-72 h-72 rounded-full bg-electric-orange/8 blur-[60px]"></div>
+</div>
+<!-- Sticky Top Header -->
+<header class="sticky top-0 inset-x-0 z-50 bg-surface-glass backdrop-blur-xl border-b border-surface-container pt-safe">
+<div class="h-16 px-4 flex items-center justify-between max-w-[430px] mx-auto w-full">
+<div class="flex items-center gap-3">
+<button aria-label="Go back" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface hover:bg-surface-container active:scale-95 transition-all" onclick="history.back()">
+<span class="material-symbols-outlined text-[22px]">arrow_back_ios_new</span>
+</button>
+<div>
+<h1 class="font-headline-sm text-lg font-bold text-on-surface tracking-tight leading-tight">Pedalboard Rigs</h1>
+<p class="font-label-eyebrow text-[10px] text-graphite-mute uppercase tracking-wider">Community Tone Recipes</p>
+</div>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Filter my pedals" class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container active:scale-95 transition-all" onclick="showToast('Filter presets by your gear inventory')">
+<span class="material-symbols-outlined text-[22px]">tune</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col relative w-full max-w-[430px] mx-auto px-4 pt-3 pb-safe z-10">
+<div class="flex flex-col w-full pb-10 space-y-4">
+<!-- Header Subtitle & Hero Description -->
+<div class="px-1 pt-1">
+<p class="font-title-base text-base font-semibold text-on-surface leading-snug">Find gear chains &amp; exact settings for iconic songs and tones</p>
+<p class="text-xs text-graphite-mute mt-0.5">Explore community knob positions, signal chains &amp; stomp setups.</p>
+</div>
+<!-- Search Input -->
+<div class="relative w-full">
+<div class="flex items-center bg-surface-container-lowest rounded-full border border-surface-container-high px-4 py-2.5 shadow-sm focus-within:border-primary transition-all">
+<span class="material-symbols-outlined text-graphite-mute text-[20px] mr-2.5 shrink-0">search</span>
+<input class="w-full bg-transparent font-body-base text-sm text-on-surface placeholder:text-graphite-mute focus:outline-none" placeholder="Search song, tone, artist or pedal..." type="text">
+<button aria-label="Clear or voice search" class="text-graphite-mute hover:text-on-surface active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[18px]">graphic_eq</span>
+</button>
+</div>
+</div>
+<!-- Filter Chips -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 -mx-4 px-4 no-scrollbar">
+<button class="px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-label-caption text-xs font-semibold whitespace-nowrap shadow-sm">
+          All Tones
+        </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest border border-surface-container-high text-on-surface-variant font-label-caption text-xs font-medium whitespace-nowrap hover:bg-surface-container active:scale-95 transition-all">
+          Song Presets
+        </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest border border-surface-container-high text-on-surface-variant font-label-caption text-xs font-medium whitespace-nowrap hover:bg-surface-container active:scale-95 transition-all">
+          Blues &amp; Classic Rock
+        </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest border border-surface-container-high text-on-surface-variant font-label-caption text-xs font-medium whitespace-nowrap hover:bg-surface-container active:scale-95 transition-all">
+          Indie / Ambient
+        </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest border border-surface-container-high text-on-surface-variant font-label-caption text-xs font-medium whitespace-nowrap hover:bg-surface-container active:scale-95 transition-all">
+          Metal / Heavy
+        </button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest border border-surface-container-high text-on-surface-variant font-label-caption text-xs font-medium whitespace-nowrap hover:bg-surface-container active:scale-95 transition-all">
+          Clean &amp; Shimmer
+        </button>
+</div>
+<!-- Share Your Rig / Tone Banner -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-stage-crimson to-electric-orange p-[1px] shadow-sm">
+<div class="bg-surface-container-lowest/95 backdrop-blur-md rounded-[15px] p-4 flex items-center justify-between gap-3">
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5 mb-0.5">
+<span class="inline-block w-2 h-2 rounded-full bg-ember-scarlet"></span>
+<span class="font-label-eyebrow text-[10px] text-primary font-bold uppercase tracking-wider">Community Share</span>
+</div>
+<h2 class="font-title-base text-sm font-bold text-on-surface tracking-tight">+ Share Your Rig &amp; Settings</h2>
+<p class="text-xs text-graphite-mute mt-0.5 line-clamp-1">Upload your pedals, signal chain &amp; knob positions</p>
+</div>
+<button class="shrink-0 px-3.5 py-2 rounded-full bg-primary hover:bg-stage-crimson text-on-primary font-label-caption text-xs font-bold shadow-sm active:scale-95 transition-all flex items-center gap-1" onclick="showToast('Rig Creator opened: add your pedal lineup')">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span class="">Post Tone</span>
+</button>
+</div>
+</div>
+<!-- Rig of the Week Breakdown Card -->
+<div class="bg-surface-container-lowest border border-surface-container rounded-xl p-4 shadow-sm space-y-3">
+<div class="flex items-start justify-between">
+<div>
+<div class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-gold/15 text-amber-gold font-label-eyebrow text-[10px] font-bold uppercase mb-1">
+<span class="material-symbols-outlined text-[12px]">star</span>
+<span class="">Rig of the Week</span>
+</div>
+<h3 class="font-headline-sm text-base font-bold text-on-surface">Mayer 'Gravity' Clean Strat Tone</h3>
+<p class="text-xs text-graphite-mute">By @JohnToneLab · 3.8k saves · 3 pedals</p>
+</div>
+<button aria-label="Bookmark rig" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-graphite-mute hover:text-primary active:scale-95 transition-all" onclick="toggleCardFav(this)">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+</button>
+</div>
+<!-- Realistic Knob Dial Breakdown Matrix -->
+<div class="grid grid-cols-3 gap-2 bg-surface-container-low rounded-lg p-2.5 border border-surface-container">
+<!-- Klon Clone -->
+<div class="flex flex-col items-center text-center p-1.5 bg-surface-container-lowest rounded-md">
+<span class="font-label-eyebrow text-[9px] uppercase tracking-wide text-primary font-bold">Klon Clone</span>
+<div class="relative w-10 h-10 my-1 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+<circle class="stroke-surface-container-highest" cx="18" cy="18" fill="none" r="14" stroke-width="3"></circle>
+<circle class="stroke-primary" cx="18" cy="18" fill="none" r="14" stroke-dasharray="88" stroke-dashoffset="66" stroke-width="3"></circle>
+</svg>
+<div class="w-6 h-6 rounded-full bg-charcoal-hardware flex items-center justify-center absolute shadow-inner">
+<div class="w-0.5 h-2 bg-on-primary rounded-full -translate-y-1"></div>
+</div>
+</div>
+<span class="text-[11px] font-semibold text-on-surface">Gain 9:00</span>
+<span class="text-[9px] text-graphite-mute">Edge of breakup</span>
+</div>
+<!-- TS10 Tube Screamer -->
+<div class="flex flex-col items-center text-center p-1.5 bg-surface-container-lowest rounded-md">
+<span class="font-label-eyebrow text-[9px] uppercase tracking-wide text-stage-success font-bold">TS10 Drive</span>
+<div class="relative w-10 h-10 my-1 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+<circle class="stroke-surface-container-highest" cx="18" cy="18" fill="none" r="14" stroke-width="3"></circle>
+<circle class="stroke-stage-success" cx="18" cy="18" fill="none" r="14" stroke-dasharray="88" stroke-dashoffset="40" stroke-width="3"></circle>
+</svg>
+<div class="w-6 h-6 rounded-full bg-charcoal-hardware flex items-center justify-center absolute shadow-inner">
+<div class="w-0.5 h-2 bg-on-primary rounded-full"></div>
+</div>
+</div>
+<span class="text-[11px] font-semibold text-on-surface">Mid Boost</span>
+<span class="text-[9px] text-graphite-mute">Drive 4 / Vol 7</span>
+</div>
+<!-- Aqua Puss Analog Delay -->
+<div class="flex flex-col items-center text-center p-1.5 bg-surface-container-lowest rounded-md">
+<span class="font-label-eyebrow text-[9px] uppercase tracking-wide text-electric-orange font-bold">Slapback</span>
+<div class="relative w-10 h-10 my-1 flex items-center justify-center">
+<svg class="w-full h-full -rotate-90" viewBox="0 0 36 36">
+<circle class="stroke-surface-container-highest" cx="18" cy="18" fill="none" r="14" stroke-width="3"></circle>
+<circle class="stroke-electric-orange" cx="18" cy="18" fill="none" r="14" stroke-dasharray="88" stroke-dashoffset="60" stroke-width="3"></circle>
+</svg>
+<div class="w-6 h-6 rounded-full bg-charcoal-hardware flex items-center justify-center absolute shadow-inner">
+<div class="w-0.5 h-2 bg-on-primary rounded-full -translate-y-0.5"></div>
+</div>
+</div>
+<span class="text-[11px] font-semibold text-on-surface">115 ms</span>
+<span class="text-[9px] text-graphite-mute">1 Repeat / Mix 35%</span>
+</div>
+</div>
+<!-- Pro Tip Note -->
+<div class="bg-surface-container/60 rounded-lg p-2.5 flex items-start gap-2 text-xs text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px] text-amber-gold mt-0.5 shrink-0">tips_and_updates</span>
+<p class="leading-relaxed"><span class="font-semibold text-on-surface">Player Note:</span> Keep the Klon clone gain low at 9 o'clock for transparent edge of breakup, run into '68 Custom Deluxe Reverb in scoop mid position with Strat neck pickup.</p>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-1.5 text-xs text-graphite-mute">
+<span class="material-symbols-outlined text-[15px]">electric_bolt</span>
+<span class="">Stratocaster (Neck)</span>
+</div>
+<button class="text-xs font-semibold text-primary hover:underline flex items-center gap-0.5" onclick="showToast('Rig details and dial sheet opened')">
+<span class="">View Full Dial Sheet</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Community Shared Tone Recipes Section Header -->
+
+<!-- TONE CARD 1: Comfortably Numb -->
+<article class="bg-surface-container-lowest border border-surface-container rounded-xl p-4 shadow-sm hover:shadow-md transition-all space-y-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2 py-0.5 rounded-full bg-stage-crimson/10 text-stage-crimson font-label-caption text-[11px] font-semibold">Pink Floyd</span>
+<span class="text-[11px] text-graphite-mute">Solo 2 Outro</span>
+</div>
+<h3 class="font-headline-sm text-base font-bold text-on-surface leading-tight truncate">Comfortably Numb - Solo Tone</h3>
+<p class="text-xs text-graphite-mute mt-0.5">Created by <span class="font-medium text-on-surface">@DavidTones</span> · 1.4k saves · 4 pedals</p>
+</div>
+<button aria-label="Save preset" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-graphite-mute hover:text-primary active:scale-95 transition-all shrink-0" onclick="toggleCardFav(this)">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+</button>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+          Soaring creamy lead with endless sustain, violin-like attack and subtle rotary shimmer.
+        </p>
+<!-- Signal Chain Flow Badge Strip -->
+<div class="bg-surface-container-low rounded-lg p-2.5 border border-surface-container overflow-x-auto no-scrollbar">
+<div class="flex items-center gap-1.5 min-w-max text-[11px]">
+<!-- Node 1 -->
+<div class="flex flex-col items-center bg-surface-container-lowest px-2 py-1.5 rounded-md border border-surface-container">
+<span class="font-bold text-on-surface">Dynacomp</span>
+<span class="text-[9px] text-graphite-mute">Sens 2:00</span>
+</div>
+<span class="material-symbols-outlined text-[14px] text-graphite-mute">arrow_forward</span>
+<!-- Node 2 -->
+<div class="flex flex-col items-center bg-surface-container-lowest px-2 py-1.5 rounded-md border border-primary/30">
+<span class="font-bold text-primary">Big Muff</span>
+<span class="text-[9px] text-primary">Sust: 8 / Tone: 4</span>
+</div>
+<span class="material-symbols-outlined text-[14px] text-graphite-mute">arrow_forward</span>
+<!-- Node 3 -->
+<div class="flex flex-col items-center bg-surface-container-lowest px-2 py-1.5 rounded-md border border-surface-container">
+<span class="font-bold text-on-surface">Tube Drive</span>
+<span class="text-[9px] text-graphite-mute">Gain: 6 / Vol: 7</span>
+</div>
+<span class="material-symbols-outlined text-[14px] text-graphite-mute">arrow_forward</span>
+<!-- Node 4 -->
+<div class="flex flex-col items-center bg-surface-container-lowest px-2 py-1.5 rounded-md border border-surface-container">
+<span class="font-bold text-on-surface">Analog Delay</span>
+<span class="text-[9px] text-graphite-mute">380ms / 4 Rep</span>
+</div>
+</div>
+</div>
+<!-- Tags -->
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-caption text-[11px]">Lead Guitar</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-caption text-[11px]">Vintage Gilmour</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-caption text-[11px]">EHX + Boss</span>
+</div>
+<!-- Card Bottom Actions -->
+<div class="flex items-center justify-between pt-1 border-t border-surface-container">
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-1 text-xs text-graphite-mute hover:text-primary active:scale-95 transition-all" onclick="upvoteTone(this)">
+<span class="material-symbols-outlined text-[16px]">thumb_up</span>
+<span class="">426</span>
+</button>
+<button class="flex items-center gap-1 text-xs text-graphite-mute hover:text-on-surface active:scale-95 transition-all" onclick="showToast('Tone link copied to clipboard')">
+<span class="material-symbols-outlined text-[16px]">share</span>
+<span class="">Share</span>
+</button>
+</div>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-caption text-xs font-semibold active:scale-95 transition-all flex items-center gap-1" onclick="showToast('Opened Comfortably Numb Rig Settings')">
+<span class="">View Full Rig &amp; Knobs</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- TONE CARD 2: Where The Streets Have No Name -->
+<article class="bg-surface-container-lowest border border-surface-container rounded-xl p-4 shadow-sm hover:shadow-md transition-all space-y-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2 py-0.5 rounded-full bg-electric-orange/10 text-electric-orange font-label-caption text-[11px] font-semibold">U2 / The Edge</span>
+<span class="text-[11px] text-graphite-mute">Iconic Intro</span>
+</div>
+<h3 class="font-headline-sm text-base font-bold text-on-surface leading-tight truncate">Where The Streets Have No Name</h3>
+<p class="text-xs text-graphite-mute mt-0.5">Created by <span class="font-medium text-on-surface">@EdgeExplorer</span> · 890 saves · 3 pedals</p>
+</div>
+<button aria-label="Save preset" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-graphite-mute hover:text-primary active:scale-95 transition-all shrink-0" onclick="toggleCardFav(this)">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+</button>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+          Rhythmic dotted eighth-note delay with sparkling top chime and crystal preamp compression.
+        </p>
+<!-- Signal Chain Flow Badge Strip -->
+<div class="bg-surface-container-low rounded-lg p-2.5 border border-surface-container overflow-x-auto no-scrollbar">
+<div class="flex items-center gap-1.5 min-w-max text-[11px]">
+<!-- Node 1 -->
+<div class="flex flex-col items-center bg-surface-container-lowest px-2 py-1.5 rounded-md border border-surface-container">
+<span class="font-bold text-on-surface">Korg A3 Preamp</span>
+<span class="text-[9px] text-graphite-mute">Comp + Boost</span>
+</div>
+<span class="material-symbols-outlined text-[14px] text-graphite-mute">arrow_forward</span>
+<!-- Node 2 -->
+<div class="flex flex-col items-center bg-surface-container-lowest px-2 py-1.5 rounded-md border border-electric-orange/40">
+<span class="font-bold text-electric-orange">Memory Man</span>
+<span class="text-[9px] text-electric-orange">Dotted 8th (350ms)</span>
+</div>
+<span class="material-symbols-outlined text-[14px] text-graphite-mute">arrow_forward</span>
+<!-- Node 3 -->
+<div class="flex flex-col items-center bg-surface-container-lowest px-2 py-1.5 rounded-md border border-surface-container">
+<span class="font-bold text-on-surface">AC30 Top Boost</span>
+<span class="text-[9px] text-graphite-mute">Cut: 6 / Chime</span>
+</div>
+</div>
+</div>
+<!-- Tags -->
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-caption text-[11px]">Dotted 8th</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-caption text-[11px]">Stereo Delay</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-caption text-[11px]">Vox Chime</span>
+</div>
+<!-- Card Bottom Actions -->
+<div class="flex items-center justify-between pt-1 border-t border-surface-container">
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-1 text-xs text-graphite-mute hover:text-primary active:scale-95 transition-all" onclick="upvoteTone(this)">
+<span class="material-symbols-outlined text-[16px]">thumb_up</span>
+<span class="">312</span>
+</button>
+<button class="flex items-center gap-1 text-xs text-graphite-mute hover:text-on-surface active:scale-95 transition-all" onclick="showToast('Tone link copied to clipboard')">
+<span class="material-symbols-outlined text-[16px]">share</span>
+<span class="">Share</span>
+</button>
+</div>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-caption text-xs font-semibold active:scale-95 transition-all flex items-center gap-1" onclick="showToast('Opened U2 The Edge Delay Rig Settings')">
+<span class="">View Full Rig &amp; Knobs</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- TONE CARD 3: Smells Like Teen Spirit -->
+<article class="bg-surface-container-lowest border border-surface-container rounded-xl p-4 shadow-sm hover:shadow-md transition-all space-y-3">
+<div class="flex items-start justify-between gap-3">
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-2 mb-1">
+<span class="px-2 py-0.5 rounded-full bg-amber-gold/10 text-amber-gold font-label-caption text-[11px] font-semibold">Nirvana / Kurt Cobain</span>
+<span class="text-[11px] text-graphite-mute">Grunge Standard</span>
+</div>
+<h3 class="font-headline-sm text-base font-bold text-on-surface leading-tight truncate">Smells Like Teen Spirit</h3>
+<p class="text-xs text-graphite-mute mt-0.5">Created by <span class="font-medium text-on-surface">@CobainRigs</span> · 2.1k saves · 2 pedals</p>
+</div>
+<button aria-label="Save preset" class="w-8 h-8 rounded-full bg-surface-container flex items-center justify-center text-graphite-mute hover:text-primary active:scale-95 transition-all shrink-0" onclick="toggleCardFav(this)">
+<span class="material-symbols-outlined text-[18px]">bookmark</span>
+</button>
+</div>
+<p class="text-xs text-on-surface-variant leading-relaxed">
+          Watery and moody Small Clone chorus for verse riff, kicking into explosive Boss DS-1 wall of fuzz distortion.
+        </p>
+<!-- Signal Chain Flow Badge Strip -->
+<div class="bg-surface-container-low rounded-lg p-2.5 border border-surface-container overflow-x-auto no-scrollbar">
+<div class="flex items-center gap-1.5 min-w-max text-[11px]">
+<!-- Node 1 -->
+<div class="flex flex-col items-center bg-surface-container-lowest px-2 py-1.5 rounded-md border border-amber-gold/40">
+<span class="font-bold text-amber-gold">Boss DS-1</span>
+<span class="text-[9px] text-amber-gold">Dist: 7 / Tone: 5</span>
+</div>
+<span class="material-symbols-outlined text-[14px] text-graphite-mute">arrow_forward</span>
+<!-- Node 2 -->
+<div class="flex flex-col items-center bg-surface-container-lowest px-2 py-1.5 rounded-md border border-surface-container">
+<span class="font-bold text-on-surface">Small Clone</span>
+<span class="text-[9px] text-graphite-mute">Rate: 11 o'clock / Depth: Up</span>
+</div>
+<span class="material-symbols-outlined text-[14px] text-graphite-mute">arrow_forward</span>
+<!-- Node 3 -->
+<div class="flex flex-col items-center bg-surface-container-lowest px-2 py-1.5 rounded-md border border-surface-container">
+<span class="font-bold text-on-surface">Twin Reverb</span>
+<span class="text-[9px] text-graphite-mute">Clean Input Channel</span>
+</div>
+</div>
+</div>
+<!-- Tags -->
+<div class="flex flex-wrap items-center gap-1.5">
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-caption text-[11px]">Grunge</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-caption text-[11px]">90s Rock</span>
+<span class="px-2 py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-caption text-[11px]">Chorus + Distortion</span>
+</div>
+<!-- Card Bottom Actions -->
+<div class="flex items-center justify-between pt-1 border-t border-surface-container">
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-1 text-xs text-graphite-mute hover:text-primary active:scale-95 transition-all" onclick="upvoteTone(this)">
+<span class="material-symbols-outlined text-[16px]">thumb_up</span>
+<span class="">782</span>
+</button>
+<button class="flex items-center gap-1 text-xs text-graphite-mute hover:text-on-surface active:scale-95 transition-all" onclick="showToast('Tone link copied to clipboard')">
+<span class="material-symbols-outlined text-[16px]">share</span>
+<span class="">Share</span>
+</button>
+</div>
+<button class="px-3 py-1.5 rounded-full bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-caption text-xs font-semibold active:scale-95 transition-all flex items-center gap-1" onclick="showToast('Opened Nirvana Teen Spirit Rig Settings')">
+<span class="">View Full Rig &amp; Knobs</span>
+<span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- Bottom Floating Quick Action Helper -->
+
+</div>
+</main>
+<!-- Lightweight Toast -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-charcoal-hardware text-on-primary font-body-sm-medium text-xs px-4 py-2.5 rounded-full shadow-2xl opacity-0 pointer-events-none transition-opacity duration-300 z-50 flex items-center gap-2" id="toast">
+<span class="material-symbols-outlined text-[16px] text-stage-success-bright">check_circle</span>
+<span id="toast-text" class="">Notification</span>
+</div>
+<script>
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const text = document.getElementById('toast-text');
+      text.innerText = msg;
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 2300);
+    }
+
+    function toggleCardFav(btn) {
+      const icon = btn.querySelector('.material-symbols-outlined');
+      const isFilled = icon.classList.contains('filled');
+      if (isFilled) {
+        icon.classList.remove('filled', 'text-stage-crimson');
+        btn.classList.remove('bg-stage-crimson/10');
+        showToast('Removed from your Saved Tone Rigs');
+      } else {
+        icon.classList.add('filled', 'text-stage-crimson');
+        btn.classList.add('bg-stage-crimson/10');
+        showToast('Rig saved to your Library');
+      }
+    }
+
+    function upvoteTone(btn) {
+      const countSpan = btn.querySelector('span:last-child');
+      let count = parseInt(countSpan.innerText, 10);
+      const icon = btn.querySelector('.material-symbols-outlined');
+      if (!btn.dataset.voted) {
+        btn.dataset.voted = 'true';
+        countSpan.innerText = count + 1;
+        icon.classList.add('filled', 'text-primary');
+        btn.classList.add('text-primary');
+        showToast('Tone upvoted!');
+      } else {
+        delete btn.dataset.voted;
+        countSpan.innerText = count - 1;
+        icon.classList.remove('filled', 'text-primary');
+        btn.classList.remove('text-primary');
+      }
+    }
+  </script>
+
+
+</body></html>

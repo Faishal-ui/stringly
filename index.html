@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stringly - Guitarist Mobile App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'primary': '#9e2016',
+            'primary-container': '#c0392b',
+            'secondary': '#ab3500',
+            'electric-orange': '#ff6b35',
+            'amber-gold': '#ff8c00',
+            'surface-dark': '#0f1115',
+            'surface-card': '#181b22',
+            'surface-border': '#262a35'
+          },
+          fontFamily: {
+            'outfit': ['Outfit', 'sans-serif'],
+            'inter': ['Inter', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #0c0e12;
+      color: #e2e8f0;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+    .device-shell {
+      width: 412px;
+      height: 860px;
+      border-radius: 44px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 12px #1e232d, 0 0 0 14px #2e3544;
+      overflow: hidden;
+      position: relative;
+    }
+    .phone-notch {
+      width: 140px;
+      height: 24px;
+      background: #1e232d;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .phone-camera {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #090a0d;
+      border: 1px solid #333a49;
+    }
+    .screen-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #f9f9fb;
+    }
+    .screen-tab.active {
+      background: linear-gradient(135deg, #c0392b 0%, #ff6b35 100%);
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(255, 107, 53, 0.35);
+      border-color: transparent;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+  <!-- Top Navigation Bar -->
+  <header class="border-b border-surface-border bg-surface-dark/90 backdrop-blur px-6 py-4 flex items-center justify-between sticky top-0 z-50">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-electric-orange flex items-center justify-center text-white shadow-lg">
+        <span class="material-symbols-outlined text-[24px]">music_note</span>
+      </div>
+      <div>
+        <h1 class="text-lg font-bold font-outfit text-white tracking-tight leading-snug">Stringly Mobile UI</h1>
+        <p class="text-xs text-gray-400">Project: Guitarist Mobile Design System (#6681830090372735227)</p>
+      </div>
+    </div>
+    
+    <div class="flex items-center gap-3">
+      <button id="view-mode-toggle" class="text-xs px-3 py-1.5 rounded-lg border border-surface-border hover:bg-surface-card flex items-center gap-1.5 text-gray-300">
+        <span class="material-symbols-outlined text-[16px]">grid_view</span>
+        <span>Toggle All Screens Grid</span>
+      </button>
+      <a href="./stitch_screens/screenshots/01_Home_Sonic_Stage.jpg" target="_blank" id="inspect-img-link" class="text-xs px-3 py-1.5 rounded-lg bg-surface-card border border-surface-border hover:border-gray-500 flex items-center gap-1.5 text-gray-300">
+        <span class="material-symbols-outlined text-[16px]">image</span>
+        <span>View Original Screenshot</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Screen Switcher Pills -->
+  <nav class="bg-surface-dark px-6 py-3 border-b border-surface-border overflow-x-auto flex items-center gap-2">
+    <button onclick="switchScreen('01_Home_Sonic_Stage', this)" class="screen-tab active whitespace-nowrap px-4 py-2 rounded-xl text-xs font-semibold font-outfit border border-surface-border transition-all flex items-center gap-2">
+      <span class="material-symbols-outlined text-[18px]">home</span>
+      <span>1. Home (Sonic Stage)</span>
+    </button>
+    <button onclick="switchScreen('02_Metronome_Stringly', this)" class="screen-tab whitespace-nowrap px-4 py-2 rounded-xl text-xs font-semibold font-outfit text-gray-400 border border-surface-border hover:text-white hover:bg-surface-card transition-all flex items-center gap-2">
+      <span class="material-symbols-outlined text-[18px]">speed</span>
+      <span>2. Metronome</span>
+    </button>
+    <button onclick="switchScreen('03_Chords_Stringly', this)" class="screen-tab whitespace-nowrap px-4 py-2 rounded-xl text-xs font-semibold font-outfit text-gray-400 border border-surface-border hover:text-white hover:bg-surface-card transition-all flex items-center gap-2">
+      <span class="material-symbols-outlined text-[18px]">grid_on</span>
+      <span>3. Chords</span>
+    </button>
+    <button onclick="switchScreen('04_Tabs_Stringly', this)" class="screen-tab whitespace-nowrap px-4 py-2 rounded-xl text-xs font-semibold font-outfit text-gray-400 border border-surface-border hover:text-white hover:bg-surface-card transition-all flex items-center gap-2">
+      <span class="material-symbols-outlined text-[18px]">queue_music</span>
+      <span>4. Tabs</span>
+    </button>
+    <button onclick="switchScreen('05_Tuner_Stringly', this)" class="screen-tab whitespace-nowrap px-4 py-2 rounded-xl text-xs font-semibold font-outfit text-gray-400 border border-surface-border hover:text-white hover:bg-surface-card transition-all flex items-center gap-2">
+      <span class="material-symbols-outlined text-[18px]">graphic_eq</span>
+      <span>5. Tuner</span>
+    </button>
+    <button onclick="switchScreen('06_Jam_Spot_Stringly', this)" class="screen-tab whitespace-nowrap px-4 py-2 rounded-xl text-xs font-semibold font-outfit text-gray-400 border border-surface-border hover:text-white hover:bg-surface-card transition-all flex items-center gap-2">
+      <span class="material-symbols-outlined text-[18px]">groups</span>
+      <span>6. Jam Spot</span>
+    </button>
+    <button onclick="switchScreen('07_Pedalboard_Stringly', this)" class="screen-tab whitespace-nowrap px-4 py-2 rounded-xl text-xs font-semibold font-outfit text-gray-400 border border-surface-border hover:text-white hover:bg-surface-card transition-all flex items-center gap-2">
+      <span class="material-symbols-outlined text-[18px]">speaker</span>
+      <span>7. Pedalboard</span>
+    </button>
+  </nav>
+
+  <!-- Interactive Device Stage -->
+  <main class="flex-1 flex flex-col items-center justify-center p-6" id="single-view-container">
+    <div class="device-shell">
+      <div class="phone-notch">
+        <div class="phone-camera"></div>
+      </div>
+      <iframe id="screen-frame" class="screen-iframe" src="./stitch_screens/html/01_Home_Sonic_Stage.html"></iframe>
+    </div>
+  </main>
+
+  <!-- Multi-Screen Grid View (Initially Hidden) -->
+  <section id="grid-view-container" class="hidden flex-1 p-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
+    <!-- Generated dynamically -->
+  </section>
+
+  <footer class="py-3 px-6 border-t border-surface-border bg-surface-dark flex items-center justify-between text-xs text-gray-500">
+    <div>Crafted for Stringly • Powered by Stitch Design System</div>
+    <div class="flex items-center gap-4">
+      <span>7 Screens Ready</span>
+      <span class="text-stage-success flex items-center gap-1 font-medium">
+        <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Fully Loaded
+      </span>
+    </div>
+  </footer>
+
+  <script>
+    const screens = [
+      { id: '01_Home_Sonic_Stage', title: 'Home - Sonic Stage' },
+      { id: '02_Metronome_Stringly', title: 'Metronome' },
+      { id: '03_Chords_Stringly', title: 'Chords Library' },
+      { id: '04_Tabs_Stringly', title: 'Interactive Tabs' },
+      { id: '05_Tuner_Stringly', title: 'Chromatic Tuner' },
+      { id: '06_Jam_Spot_Stringly', title: 'Jam Spot Forum' },
+      { id: '07_Pedalboard_Stringly', title: 'Pedalboard FX' }
+    ];
+
+    let currentScreen = '01_Home_Sonic_Stage';
+
+    function switchScreen(screenId, btn) {
+      currentScreen = screenId;
+      document.querySelectorAll('.screen-tab').forEach(el => {
+        el.classList.remove('active');
+        el.classList.add('text-gray-400');
+      });
+      if (btn) {
+        btn.classList.add('active');
+        btn.classList.remove('text-gray-400');
+      }
+      document.getElementById('screen-frame').src = `./stitch_screens/html/${screenId}.html`;
+      document.getElementById('inspect-img-link').href = `./stitch_screens/screenshots/${screenId}.jpg`;
+    }
+
+    // Grid View Toggle Logic
+    const toggleBtn = document.getElementById('view-mode-toggle');
+    const singleView = document.getElementById('single-view-container');
+    const gridView = document.getElementById('grid-view-container');
+    let isGrid = false;
+
+    // Populate Grid
+    screens.forEach(s => {
+      const card = document.createElement('div');
+      card.className = 'flex flex-col items-center gap-3 w-[360px]';
+      card.innerHTML = `
+        <div class="flex items-center justify-between w-full px-2 text-sm font-semibold text-gray-300">
+          <span>${s.title}</span>
+          <a href="./stitch_screens/html/${s.id}.html" target="_blank" class="text-xs text-orange-400 hover:underline flex items-center gap-0.5">
+            Full Tab <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+          </a>
+        </div>
+        <div class="w-[360px] h-[720px] rounded-[36px] overflow-hidden shadow-2xl border-4 border-surface-border bg-black relative">
+          <iframe src="./stitch_screens/html/${s.id}.html" class="w-full h-full border-none"></iframe>
+        </div>
+      `;
+      gridView.appendChild(card);
+    });
+
+    toggleBtn.addEventListener('click', () => {
+      isGrid = !isGrid;
+      if (isGrid) {
+        singleView.classList.add('hidden');
+        gridView.classList.remove('hidden');
+        toggleBtn.querySelector('span:last-child').textContent = 'Show Single Simulator';
+      } else {
+        singleView.classList.remove('hidden');
+        gridView.classList.add('hidden');
+        toggleBtn.querySelector('span:last-child').textContent = 'Toggle All Screens Grid';
+      }
+    });
+  </script>
+</body>
+</html>
